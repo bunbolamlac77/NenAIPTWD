@@ -1,0 +1,19 @@
+{
+  "name": "Vòm Hoa Cẩm Thạch Luxury",
+  "category": "Châu Âu",
+  "light_dir": "backlit",
+  "tone": "Vàng kim sang trọng",
+  "id": "palace_gold_02",
+  "title": "Vòm Hoa Cẩm Thạch Luxury (v8.1)",
+  "tag": "LUXURY",
+  "sub": "Sàn đá & Lan hồ điệp",
+  "floorHex": "#DECAB0",
+  "wallHex": "#E5D6BE",
+  "flowerHex": "#F6EFE2",
+  "fg": "Sàn đá cẩm thạch kem ấm phản chiếu bóng gương đế giày, cánh hoa trắng rơi tự nhiên và hoa hồng bokeh tiền cảnh.",
+  "mid": "Vòm hoa lan hồ điệp trắng & hồng cổ điển cao 2.4m ôm quanh Dâu Rể với độ chi tiết 33MP.",
+  "bg": "Hệ cửa sổ vòm kiểu Pháp đón nắng chiều vàng kem ấm áp (LAB b = 143.9), đồng bộ toàn diện da và trang phục.",
+  "clean_bg_url": "/presets/palace_gold_02/clean_bg.jpg",
+  "thumb_url": "/presets/palace_gold_02/thumb.jpg",
+  "preview": "/presets/palace_gold_02/clean_bg.jpg"
+}

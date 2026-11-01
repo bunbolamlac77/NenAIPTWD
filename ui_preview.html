@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <title>NenAI Studio - 3 Bản Thiết Kế Giao Diện Panel Photoshop</title>
+  <script src="https://www.gstatic.com/antigravity/web/dev/tailwindcss.min.js"></script>
+  <style>
+    /* Custom scrollbar */
+    ::-webkit-scrollbar { width: 5px; height: 5px; }
+    ::-webkit-scrollbar-track { background: rgba(0,0,0,0.2); }
+    ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.15); border-radius: 3px; }
+    ::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.3); }
+    .gold-glow { box-shadow: 0 0 20px -3px rgba(212, 175, 55, 0.25); }
+    .fade-in { animation: fadeIn 0.25s ease-in-out; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+  </style>
+</head>
+<body class="bg-[#0b0c0e] text-gray-200 antialiased p-4 md:p-6 font-sans select-none min-h-screen flex flex-col">
+
+  <!-- TOP SELECTOR: SWITCH 3 UI DESIGNS -->
+  <header class="max-w-6xl mx-auto w-full mb-6 bg-[#14151a] border border-[#262832] rounded-2xl p-4 shadow-xl flex flex-col md:flex-row items-center justify-between gap-4">
+    <div class="flex items-center gap-3">
+      <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-amber-600 via-amber-500 to-yellow-300 flex items-center justify-center text-black font-black text-lg shadow-lg shadow-amber-500/20">
+        N
+      </div>
+      <div>
+        <h1 class="text-base font-bold text-white flex items-center gap-2">
+          NenAI Studio <span class="text-xs bg-amber-500/20 text-amber-300 px-2 py-0.5 rounded-full border border-amber-500/30 font-semibold">Photoshop 2026 UXP Panel</span>
+        </h1>
+        <p class="text-xs text-gray-400">Chọn 1 trong 3 bản thiết kế giao diện bên dưới để trải nghiệm tương tác</p>
+      </div>
+    </div>
+
+    <!-- 3 TABS SELECTOR -->
+    <div class="flex items-center bg-[#0d0e12] p-1.5 rounded-xl border border-[#22242e] gap-1.5 w-full md:w-auto">
+      <button onclick="switchStyle(1)" id="tabBtn1" class="flex-1 md:flex-none px-4 py-2 rounded-lg text-xs font-bold transition flex items-center justify-center gap-2 bg-gradient-to-r from-amber-500 to-yellow-500 text-black shadow-md">
+        <span>✨ BẢN 1: LUXURY GOLD</span>
+      </button>
+      <button onclick="switchStyle(2)" id="tabBtn2" class="flex-1 md:flex-none px-4 py-2 rounded-lg text-xs font-semibold text-gray-400 hover:text-white hover:bg-[#1a1b22] transition flex items-center justify-center gap-2">
+        <span>🌸 BẢN 2: KOREAN MINIMAL</span>
+      </button>
+      <button onclick="switchStyle(3)" id="tabBtn3" class="flex-1 md:flex-none px-4 py-2 rounded-lg text-xs font-semibold text-gray-400 hover:text-white hover:bg-[#1a1b22] transition flex items-center justify-center gap-2">
+        <span>⚡ BẢN 3: MASTER COMPACT</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- WORKSPACE CONTAINER (SIMULATING PHOTOSHOP SCREEN) -->
+  <div class="max-w-6xl mx-auto w-full flex-1 grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+
+    <!-- LEFT: PHOTOSHOP CANVAS SIMULATION (Mô phỏng bức ảnh đang mở trên Photoshop) -->
+    <div class="lg:col-span-7 bg-[#14151a] border border-[#262832] rounded-2xl p-4 flex flex-col justify-between shadow-2xl h-[780px] relative overflow-hidden">
+      <!-- Photoshop Document Bar -->
+      <div class="flex items-center justify-between pb-3 border-b border-[#22242e] text-xs text-gray-400">
+        <div class="flex items-center gap-2">
+          <span class="w-3 h-3 rounded-full bg-rose-500/80 inline-block"></span>
+          <span class="w-3 h-3 rounded-full bg-amber-500/80 inline-block"></span>
+          <span class="w-3 h-3 rounded-full bg-emerald-500/80 inline-block"></span>
+          <span class="ml-2 font-mono text-gray-300">PWD05689.psd @ 50% (RGB/8#)</span>
+        </div>
+        <div class="flex items-center gap-2 text-[11px] bg-[#1a1b22] px-2.5 py-1 rounded-md text-gray-400 border border-[#2b2d38]">
+          <span>Kích thước: 4672 x 7008 px</span>
+        </div>
+      </div>
+
+      <!-- Canvas Main Image View (Dynamic View) -->
+      <div class="flex-1 flex items-center justify-center p-3 relative overflow-hidden my-2 bg-[#0d0e12] rounded-xl border border-[#1f2129]">
+        <!-- Simulated Couple Image -->
+        <div id="canvasContainer" class="relative max-h-full max-w-full aspect-[2/3] rounded-lg shadow-2xl overflow-hidden transition-all duration-300 flex items-center justify-center">
+          <img id="mainCanvasImg" src="assets/media_1793508970855_015e3068.png" class="h-full w-full object-cover rounded" alt="Photoshop Canvas">
+          
+          <!-- Passe-partout Frame Overlay (if enabled) -->
+          <div id="passePartoutOverlay" class="hidden absolute inset-0 border-[16px] border-white shadow-inner pointer-events-none flex flex-col justify-between p-2">
+            <div></div>
+            <div id="typoText" class="text-center font-serif text-[10px] tracking-widest text-gray-800 uppercase font-semibold">
+              The Wedding • Studio Elegance
+            </div>
+          </div>
+
+          <!-- Layer Badge Overlay -->
+          <div id="activeLayerPill" class="absolute top-3 left-3 bg-black/75 backdrop-blur px-3 py-1.5 rounded-full border border-amber-500/40 text-xs text-amber-300 font-semibold flex items-center gap-1.5 shadow-lg">
+            <span class="w-2 h-2 rounded-full bg-amber-400 animate-pulse"></span>
+            <span id="activeLayerText">Đang xem: [Bản 2] Nắng Viền Điện Ảnh</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Canvas Bottom Info -->
+      <div class="pt-2 flex items-center justify-between text-xs text-gray-400 border-t border-[#22242e]">
+        <span>Chế độ: <b class="text-white">Không gian màu Adobe RGB (1998)</b></span>
+        <span class="text-amber-400 flex items-center gap-1">
+          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+          M1 Metal GPU Ready
+        </span>
+      </div>
+    </div>
+
+
+    <!-- ========================================================================================= -->
+    <!-- RIGHT: THE NENAI UXP PANEL (CONTAINER CHO 3 BẢN GIAO DIỆN) -->
+    <!-- ========================================================================================= -->
+    <div class="lg:col-span-5 h-[780px] overflow-hidden flex flex-col">
+
+      <!-- ======================================================================================= -->
+      <!-- BẢN 1: LUXURY GOLD & TITANIUM STUDIO (Sang Trọng, Đẳng Cấp, Đầy Đủ Chi Tiết) -->
+      <!-- ======================================================================================= -->
+      <div id="style1Panel" class="fade-in bg-[#131419] border border-amber-500/30 rounded-2xl flex flex-col h-full shadow-2xl overflow-hidden gold-glow">
+        
+        <!-- Panel Header -->
+        <div class="px-4 py-3 bg-gradient-to-r from-[#1c1e26] to-[#14151b] border-b border-[#282a36] flex items-center justify-between">
+          <div class="flex items-center gap-2">
+            <span class="w-2.5 h-2.5 rounded-full bg-amber-400"></span>
+            <span class="text-xs font-bold text-white tracking-wider uppercase">NenAI • Studio Wedding Pro</span>
+          </div>
+          <span class="text-[11px] bg-amber-500/15 text-amber-300 px-2 py-0.5 rounded border border-amber-500/30 font-semibold">UXP Native</span>
+        </div>
+
+        <!-- Panel Body: Scrollable -->
+        <div class="flex-1 overflow-y-auto p-4 space-y-4">
+
+          <!-- 1. CỰ LY CHỤP (SHOT FRAMING) -->
+          <div class="space-y-1.5">
+            <div class="flex justify-between items-center text-xs font-semibold text-gray-300">
+              <span class="flex items-center gap-1.5">
+                <span class="w-4 h-4 rounded bg-amber-500/20 text-amber-400 flex items-center justify-center text-[10px]">1</span>
+                Cự Ly Chụp (Shot Framing)
+              </span>
+              <span class="text-[11px] text-amber-400" id="framingHint">Tự động đổ bóng sàn</span>
+            </div>
+            
+            <div class="grid grid-cols-3 gap-1.5 p-1 bg-[#0b0c0f] rounded-xl border border-[#22242e]">
+              <button onclick="setFraming(this, 'Toàn Thân', 'Tự động kích hoạt Contact Shadow tiếp xúc sàn')" class="framing-btn py-2 rounded-lg text-xs font-bold bg-amber-500 text-black shadow-md transition flex flex-col items-center">
+                <span>🧍‍♂️ Toàn Thân</span>
+                <span class="text-[9px] opacity-80">Có mặt sàn</span>
+              </button>
+              <button onclick="setFraming(this, 'Bán Thân', 'Bỏ sàn, xóa phông nhẹ f/2.0 ngang eo')" class="framing-btn py-2 rounded-lg text-xs font-semibold text-gray-400 hover:text-white transition flex flex-col items-center">
+                <span>🧍 Bán Thân</span>
+                <span class="text-[9px] opacity-60">Lưng tường</span>
+              </button>
+              <button onclick="setFraming(this, 'Chân Dung', 'KHÔNG tả nền, Bokeh / Phông loang Fine-art')" class="framing-btn py-2 rounded-lg text-xs font-semibold text-gray-400 hover:text-white transition flex flex-col items-center">
+                <span>👤 Chân Dung</span>
+                <span class="text-[9px] opacity-60">Phông loang</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- 2. KHO MẪU BỐI CẢNH (STUDIO PRESET VAULT) -->
+          <div class="space-y-1.5">
+            <div class="flex justify-between items-center text-xs font-semibold text-gray-300">
+              <span class="flex items-center gap-1.5">
+                <span class="w-4 h-4 rounded bg-amber-500/20 text-amber-400 flex items-center justify-center text-[10px]">2</span>
+                Kho Bối Cảnh Mẫu (Studio Vault)
+              </span>
+              <button class="text-[11px] text-amber-400 hover:underline flex items-center gap-1">
+                + Nạp Mẫu Mới
+              </button>
+            </div>
+
+            <!-- Vault Horizontal Grid -->
+            <div class="grid grid-cols-3 gap-2">
+              <!-- Item 1: Active Preset (Mẫu 2H Studio Ô Chợ Dừa) -->
+              <div onclick="selectPreset(this, '2H Studio Hoa Baby', 'assets/media_1793509020377_8647edcd.png')" class="preset-card cursor-pointer rounded-xl border-2 border-amber-400 p-1 bg-[#1a1b24] relative group transition">
+                <div class="aspect-[3/4] rounded-lg overflow-hidden relative">
+                  <img src="assets/media_1793509020377_8647edcd.png" class="w-full h-full object-cover" alt="Preset 1">
+                  <span class="absolute top-1 left-1 bg-emerald-500/90 text-white text-[9px] font-bold px-1.5 py-0.2 rounded">ĐÃ XÓA NGƯỜI</span>
+                </div>
+                <p class="text-[11px] font-bold text-white mt-1 truncate">Hàn Quốc Hoa Baby</p>
+                <p class="text-[10px] text-gray-400">Nắng xiên cửa sổ trái</p>
+              </div>
+
+              <!-- Item 2: Lâu đài châu âu -->
+              <div onclick="selectPreset(this, 'Lâu Đài Hoàng Gia', 'https://images.unsplash.com/photo-1519741497674-611481863552?w=400&q=80')" class="preset-card cursor-pointer rounded-xl border border-[#2b2d38] p-1 bg-[#16171f] hover:border-amber-500/60 transition">
+                <div class="aspect-[3/4] rounded-lg overflow-hidden bg-black/40">
+                  <img src="https://images.unsplash.com/photo-1519741497674-611481863552?w=400&q=80" class="w-full h-full object-cover opacity-80" alt="Preset 2">
+                </div>
+                <p class="text-[11px] font-semibold text-gray-200 mt-1 truncate">Lâu Đài Châu Âu</p>
+                <p class="text-[10px] text-gray-400">Tone vàng sang trọng</p>
+              </div>
+
+              <!-- Item 3: Phông loang mỹ thuật chân dung -->
+              <div onclick="selectPreset(this, 'Phông Loang Mỹ Thuật', 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=400&q=80')" class="preset-card cursor-pointer rounded-xl border border-[#2b2d38] p-1 bg-[#16171f] hover:border-amber-500/60 transition">
+                <div class="aspect-[3/4] rounded-lg overflow-hidden bg-black/40">
+                  <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=400&q=80" class="w-full h-full object-cover opacity-80" alt="Preset 3">
+                </div>
+                <p class="text-[11px] font-semibold text-gray-200 mt-1 truncate">Loang Mỹ Thuật</p>
+                <p class="text-[10px] text-gray-400">Chân dung xóa phông</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- 3. BẢO VỆ DA & KHÓA KHUNG TRIỂN LÃM -->
+          <div class="grid grid-cols-2 gap-3 bg-[#0d0e13] p-3 rounded-xl border border-[#20222a]">
+            <!-- Skin Shield -->
+            <label class="flex items-center gap-2 cursor-pointer">
+              <input type="checkbox" checked class="w-4 h-4 rounded accent-amber-500">
+              <span class="text-xs text-gray-300 font-medium">Bảo vệ da & Makeup</span>
+            </label>
+
+            <!-- Catchlight in eye -->
+            <label class="flex items-center gap-2 cursor-pointer">
+              <input type="checkbox" checked class="w-4 h-4 rounded accent-amber-500">
+              <span class="text-xs text-gray-300 font-medium">Catchlight mắt</span>
+            </label>
+
+            <!-- Frame Matting (Passe-partout) -->
+            <div class="col-span-2 pt-2 border-t border-[#1f2029] flex items-center justify-between">
+              <span class="text-xs text-gray-300 font-medium">Bo viền triển lãm:</span>
+              <div class="flex items-center gap-1">
+                <button onclick="setMat('none')" class="px-2 py-1 rounded bg-[#1c1d26] text-[11px] text-gray-300 border border-[#2e303d] hover:border-amber-400">Không bo</button>
+                <button onclick="setMat('white')" class="px-2 py-1 rounded bg-white text-black font-bold text-[11px] shadow">Viền trắng</button>
+                <button onclick="setMat('cream')" class="px-2 py-1 rounded bg-[#f4f0e6] text-black font-semibold text-[11px]">Trắng ngà</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- 4. KẾT QUẢ 3 BẢN (CHỌN TRỰC TIẾP) -->
+          <div class="space-y-1.5 pt-1">
+            <span class="text-xs font-semibold text-gray-300 flex items-center gap-1.5">
+              <span class="w-4 h-4 rounded bg-amber-500/20 text-amber-400 flex items-center justify-center text-[10px]">3</span>
+              3 Bản Kết Quả (Xem thử trước khi đổ Layer)
+            </span>
+
+            <div class="grid grid-cols-3 gap-2">
+              <!-- Bản 1 -->
+              <div onclick="selectLayer('Bản 1 - Tự Nhiên', 'Màu da gốc trong trẻo, bóng đổ sát sàn', 'assets/media_1793508963871_54c17370.png')" class="layer-pill cursor-pointer p-2 rounded-xl bg-[#171821] border border-[#2b2d3a] hover:border-blue-400 text-center transition">
+                <div class="text-[10px] font-bold text-blue-400 uppercase">Layer 1</div>
+                <p class="text-xs font-bold text-white mt-0.5">Tự Nhiên</p>
+                <p class="text-[9px] text-gray-400">Màu da thật</p>
+              </div>
+
+              <!-- Bản 2 (Đang chọn) -->
+              <div onclick="selectLayer('Bản 2 - Nắng Viền', 'Vệt nắng viền xuyên voan cưới & tóc mai', 'assets/media_1793508970855_015e3068.png')" class="layer-pill cursor-pointer p-2 rounded-xl bg-[#1e202d] border-2 border-amber-400 text-center transition shadow-lg shadow-amber-500/10">
+                <div class="text-[10px] font-bold text-amber-400 uppercase">Layer 2 ★</div>
+                <p class="text-xs font-bold text-white mt-0.5">Nắng Viền</p>
+                <p class="text-[9px] text-amber-200/80">Điện ảnh</p>
+              </div>
+
+              <!-- Bản 3 -->
+              <div onclick="selectLayer('Bản 3 - Nghệ Thuật', 'Hòa sắc kem ấm, tản sáng dịu f/1.2', 'assets/media_1793508970855_015e3068.png')" class="layer-pill cursor-pointer p-2 rounded-xl bg-[#171821] border border-[#2b2d3a] hover:border-purple-400 text-center transition">
+                <div class="text-[10px] font-bold text-purple-400 uppercase">Layer 3</div>
+                <p class="text-xs font-bold text-white mt-0.5">Mềm Mại</p>
+                <p class="text-[9px] text-gray-400">Hàn Quốc</p>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Panel Footer Action Buttons -->
+        <div class="p-4 bg-[#101116] border-t border-[#232530] space-y-2">
+          <button class="w-full py-3 rounded-xl bg-gradient-to-r from-amber-500 via-amber-600 to-yellow-500 hover:from-amber-400 hover:to-yellow-400 text-black font-black text-xs tracking-wider shadow-lg shadow-amber-500/20 transition transform active:scale-95 flex items-center justify-center gap-2 uppercase">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M8 7v8a2 2 0 002 2h6M8 7V5a2 2 0 012-2h4.586a1 1 0 01.707.293l4.414 4.414a1 1 0 01.293.707V15a2 2 0 01-2 2h-2M8 7H6a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2v-2"></path></svg>
+            <span>ĐẨY 3 BẢN VÀO PHOTOSHOP LAYERS</span>
+          </button>
+          
+          <div class="flex items-center gap-2">
+            <button class="flex-1 py-2 rounded-lg bg-[#1c1d26] hover:bg-[#252733] text-gray-300 text-xs font-semibold border border-[#2d2f3d] transition flex items-center justify-center gap-1.5">
+              <svg class="w-3.5 h-3.5 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg>
+              <span>Gen Lại Khác</span>
+            </button>
+            <button class="py-2 px-3 rounded-lg bg-[#1c1d26] hover:bg-[#252733] text-gray-300 text-xs font-semibold border border-[#2d2f3d] transition">
+              💾 Lưu Mẫu
+            </button>
+          </div>
+        </div>
+      </div>
+
+
+      <!-- ======================================================================================= -->
+      <!-- BẢN 2: KOREAN MINIMALIST SALON (Hàn Quốc Thanh Lịch, Tối Giản, Mềm Mại) -->
+      <!-- ======================================================================================= -->
+      <div id="style2Panel" class="hidden fade-in bg-[#181920] border border-[#2c2e3d] rounded-2xl flex flex-col h-full shadow-2xl overflow-hidden">
+        
+        <!-- Header -->
+        <div class="px-5 py-4 bg-[#1c1d26] border-b border-[#2a2c3a] flex items-center justify-between">
+          <div>
+            <h2 class="text-sm font-semibold text-white tracking-wide">NenAI Studio</h2>
+            <p class="text-[11px] text-gray-400">Phong cách Hàn Quốc tối giản & trang nhã</p>
+          </div>
+          <div class="w-7 h-7 rounded-full bg-emerald-500/10 text-emerald-400 flex items-center justify-center text-xs font-bold border border-emerald-500/20">
+            ✓
+          </div>
+        </div>
+
+        <!-- Body -->
+        <div class="flex-1 overflow-y-auto p-5 space-y-5">
+          
+          <!-- Mode Tabs -->
+          <div class="flex p-1 bg-[#101117] rounded-xl border border-[#262836]">
+            <button class="flex-1 py-1.5 rounded-lg text-xs font-bold bg-[#272938] text-white shadow">Toàn Thân</button>
+            <button class="flex-1 py-1.5 rounded-lg text-xs font-medium text-gray-400 hover:text-white">Bán Thân</button>
+            <button class="flex-1 py-1.5 rounded-lg text-xs font-medium text-gray-400 hover:text-white">Chân Dung</button>
+          </div>
+
+          <!-- Featured Presets Carousel -->
+          <div class="space-y-2">
+            <span class="text-xs font-semibold text-gray-300">Bối cảnh đã làm sạch:</span>
+            <div class="p-3 bg-[#13141a] rounded-xl border border-[#242634] flex items-center gap-3">
+              <img src="assets/media_1793509020377_8647edcd.png" class="w-14 h-18 object-cover rounded-lg border border-amber-500/40" alt="Thumb">
+              <div class="flex-1">
+                <p class="text-xs font-bold text-white">2H Studio • Ô Chợ Dừa</p>
+                <p class="text-[11px] text-emerald-400 mt-0.5">● Đã tự động xóa 2 người mẫu cũ</p>
+                <p class="text-[10px] text-gray-400">Ánh sáng xiên cửa sổ trái nhẹ nhàng</p>
+              </div>
+              <button class="px-2.5 py-1 text-xs bg-[#242634] hover:bg-[#303346] text-gray-200 rounded-lg">Đổi mẫu</button>
+            </div>
+          </div>
+
+          <!-- Before / After Slider Control Simulation -->
+          <div class="space-y-2">
+            <div class="flex justify-between text-xs text-gray-300 font-medium">
+              <span>Độ sáng ven (Rim Light):</span>
+              <span class="text-amber-400 font-bold">85%</span>
+            </div>
+            <input type="range" class="w-full accent-amber-500" value="85">
+          </div>
+
+          <div class="space-y-2">
+            <div class="flex justify-between text-xs text-gray-300 font-medium">
+              <span>Bảo vệ màu phấn da mặt (Skin Shield):</span>
+              <span class="text-emerald-400 font-bold">Bật</span>
+            </div>
+            <div class="flex items-center justify-between p-3 bg-[#13141a] rounded-xl border border-[#242634]">
+              <span class="text-xs text-gray-300">Khóa da mặt, chỉ đánh sáng váy cưới</span>
+              <span class="w-9 h-5 bg-emerald-500 rounded-full flex items-center justify-end px-1 cursor-pointer">
+                <span class="w-3.5 h-3.5 bg-white rounded-full"></span>
+              </span>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Footer -->
+        <div class="p-4 bg-[#14151c] border-t border-[#262836] space-y-2">
+          <button class="w-full py-3 rounded-xl bg-white hover:bg-gray-100 text-black font-bold text-xs tracking-wider transition">
+            ĐẨY 3 BẢN VÀO PHOTOSHOP
+          </button>
+        </div>
+      </div>
+
+
+      <!-- ======================================================================================= -->
+      <!-- BẢN 3: MASTER COMPACT RETOUCHER DOCK (Tối Ưu Diện Tích Màn Hình Mac) -->
+      <!-- ======================================================================================= -->
+      <div id="style3Panel" class="hidden fade-in bg-[#111216] border border-[#232530] rounded-2xl flex flex-col h-full shadow-2xl overflow-hidden">
+        
+        <!-- Header Compact -->
+        <div class="px-3 py-2.5 bg-[#171820] border-b border-[#252735] flex items-center justify-between">
+          <span class="text-xs font-mono font-bold text-amber-400">NENAI_DOCK_v2.6</span>
+          <span class="text-[10px] text-gray-400">RAM: 6.1 GB / 16 GB</span>
+        </div>
+
+        <!-- Body Compact Toolbelt -->
+        <div class="flex-1 overflow-y-auto p-3 space-y-3">
+          
+          <div class="grid grid-cols-3 gap-1 bg-[#0c0d11] p-1 rounded-lg border border-[#1f202b]">
+            <button class="py-1 text-[11px] font-bold bg-[#262838] text-amber-400 rounded">Full-body</button>
+            <button class="py-1 text-[11px] text-gray-400 rounded hover:text-white">Half</button>
+            <button class="py-1 text-[11px] text-gray-400 rounded hover:text-white">Portrait</button>
+          </div>
+
+          <!-- Fast Preset Select -->
+          <div class="p-2 bg-[#171821] rounded-lg border border-[#262835] space-y-1.5">
+            <span class="text-[11px] font-bold text-gray-300">Bối cảnh nạp sẵn:</span>
+            <div class="flex items-center gap-2">
+              <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
+              <span class="text-xs text-white font-medium truncate flex-1">2H Studio • Ô Chợ Dừa (Clean)</span>
+              <span class="text-[10px] bg-black px-1.5 py-0.5 rounded text-gray-400">33MP</span>
+            </div>
+          </div>
+
+          <!-- 3 Layers Status -->
+          <div class="space-y-1 bg-[#14151c] p-2 rounded-lg border border-[#222430]">
+            <div class="text-[10px] font-bold text-gray-400 uppercase">3 Layers sẵn sàng:</div>
+            <div class="flex items-center justify-between text-xs py-1 px-2 rounded bg-black/40">
+              <span class="text-blue-300">Layer 1: Cân bằng Studio</span>
+              <span class="text-gray-500">Auto</span>
+            </div>
+            <div class="flex items-center justify-between text-xs py-1 px-2 rounded bg-amber-500/10 border border-amber-500/20">
+              <span class="text-amber-300 font-semibold">Layer 2: Nắng Viền Tóc</span>
+              <span class="text-amber-400 font-bold">Active</span>
+            </div>
+            <div class="flex items-center justify-between text-xs py-1 px-2 rounded bg-black/40">
+              <span class="text-purple-300">Layer 3: Mềm Mại Hàn Quốc</span>
+              <span class="text-gray-500">Auto</span>
+            </div>
+          </div>
+
+          <!-- Quick Switches -->
+          <div class="space-y-1 text-xs text-gray-300">
+            <label class="flex items-center gap-2 py-1">
+              <input type="checkbox" checked class="accent-amber-500">
+              <span>Khóa khung hình gốc (3:2)</span>
+            </label>
+            <label class="flex items-center gap-2 py-1">
+              <input type="checkbox" checked class="accent-amber-500">
+              <span>Đổ bóng chân váy (Contact Shadow)</span>
+            </label>
+          </div>
+
+        </div>
+
+        <!-- Footer Compact -->
+        <div class="p-3 bg-[#14151c] border-t border-[#232530] flex gap-2">
+          <button class="flex-1 py-2.5 rounded-lg bg-amber-500 hover:bg-amber-400 text-black font-bold text-xs uppercase transition">
+            Export to PSD
+          </button>
+          <button class="px-3 py-2.5 rounded-lg bg-[#222430] hover:bg-[#2c2f3e] text-white text-xs">
+            🔄
+          </button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <script>
+    function switchStyle(num) {
+      document.getElementById('style1Panel').classList.add('hidden');
+      document.getElementById('style2Panel').classList.add('hidden');
+      document.getElementById('style3Panel').classList.add('hidden');
+
+      // Reset tabs
+      for (let i = 1; i <= 3; i++) {
+        const btn = document.getElementById('tabBtn' + i);
+        btn.className = "flex-1 md:flex-none px-4 py-2 rounded-lg text-xs font-semibold text-gray-400 hover:text-white hover:bg-[#1a1b22] transition flex items-center justify-center gap-2";
+      }
+
+      const activeBtn = document.getElementById('tabBtn' + num);
+      activeBtn.className = "flex-1 md:flex-none px-4 py-2 rounded-lg text-xs font-bold transition flex items-center justify-center gap-2 bg-gradient-to-r from-amber-500 to-yellow-500 text-black shadow-md";
+
+      document.getElementById('style' + num + 'Panel').classList.remove('hidden');
+    }
+
+    function setFraming(btn, title, hint) {
+      document.querySelectorAll('.framing-btn').forEach(b => {
+        b.className = "framing-btn py-2 rounded-lg text-xs font-semibold text-gray-400 hover:text-white transition flex flex-col items-center";
+      });
+      btn.className = "framing-btn py-2 rounded-lg text-xs font-bold bg-amber-500 text-black shadow-md transition flex flex-col items-center";
+      document.getElementById('framingHint').innerText = hint;
+    }
+
+    function selectPreset(card, name, imgSrc) {
+      document.querySelectorAll('.preset-card').forEach(c => {
+        c.className = "preset-card cursor-pointer rounded-xl border border-[#2b2d38] p-1 bg-[#16171f] hover:border-amber-500/60 transition";
+      });
+      card.className = "preset-card cursor-pointer rounded-xl border-2 border-amber-400 p-1 bg-[#1a1b24] relative group transition";
+    }
+
+    function selectLayer(name, desc, imgSrc) {
+      document.getElementById('activeLayerText').innerText = 'Đang xem: ' + name;
+      document.getElementById('mainCanvasImg').src = imgSrc;
+    }
+
+    function setMat(color) {
+      const overlay = document.getElementById('passePartoutOverlay');
+      if (color === 'none') {
+        overlay.classList.add('hidden');
+      } else if (color === 'white') {
+        overlay.classList.remove('hidden');
+        overlay.style.borderColor = '#ffffff';
+        overlay.style.borderWidth = '24px';
+        overlay.style.backgroundColor = 'transparent';
+      } else if (color === 'cream') {
+        overlay.classList.remove('hidden');
+        overlay.style.borderColor = '#f5f0e6';
+        overlay.style.borderWidth = '24px';
+        overlay.style.backgroundColor = 'transparent';
+      }
+    }
+  </script>
+</body>
+</html>

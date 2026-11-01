@@ -1,0 +1,97 @@
+{
+  "id": "com.nenai.studio",
+  "name": "NenAI Studio - Ghép Nền Cưới",
+  "version": "1.0.0",
+  "main": "index.html",
+  "manifestVersion": 6,
+  "host": {
+    "app": "PS",
+    "minVersion": "23.0.0",
+    "data": {
+      "loadEvent": "startup"
+    }
+  },
+  "requiredPermissions": {
+    "localFileSystem": "fullAccess",
+    "launchProcess": {
+      "schemes": [
+        "https",
+        "http",
+        "file",
+        "ws"
+      ],
+      "extensions": [
+        ".psd",
+        ".jpg",
+        ".png",
+        ".sh"
+      ]
+    },
+    "network": {
+      "domains": "all"
+    },
+    "clipboard": "readAndWrite",
+    "webview": {
+      "allow": "yes",
+      "domains": "all",
+      "enableMessageBridge": "localAndRemote"
+    },
+    "ipc": {
+      "enablePluginCommunication": true
+    },
+    "allowCodeGenerationFromStrings": true
+  },
+  "entrypoints": [
+    {
+      "type": "panel",
+      "id": "com.nenai.studio.panel",
+      "label": {
+        "default": "NenAI Studio - Ghép Nền Cưới"
+      },
+      "minimumSize": {
+        "width": 250,
+        "height": 400
+      },
+      "maximumSize": {
+        "width": 1200,
+        "height": 1600
+      },
+      "preferredDockedSize": {
+        "width": 380,
+        "height": 720
+      },
+      "preferredFloatingSize": {
+        "width": 380,
+        "height": 720
+      },
+      "icons": [
+        {
+          "width": 23,
+          "height": 23,
+          "path": "icons/dark-panel.png",
+          "scale": [1, 2],
+          "theme": ["darkest", "dark", "medium"],
+          "species": ["chrome"]
+        },
+        {
+          "width": 23,
+          "height": 23,
+          "path": "icons/light-panel.png",
+          "scale": [1, 2],
+          "theme": ["lightest", "light"],
+          "species": ["chrome"]
+        }
+      ]
+    }
+  ],
+  "icons": [
+    {
+      "width": 48,
+      "height": 48,
+      "path": "icons/plugin.png",
+      "scale": [1, 2],
+      "theme": ["all"],
+      "species": ["pluginList"]
+    }
+  ]
+}

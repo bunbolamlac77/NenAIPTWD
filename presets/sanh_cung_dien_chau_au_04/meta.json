@@ -1,0 +1,21 @@
+{
+  "id": "sanh_cung_dien_chau_au_04",
+  "name": "Sảnh Cung Điện Châu Âu",
+  "title": "Sảnh Cung Điện Châu Âu",
+  "category": "Châu Âu",
+  "tag": "ROYAL",
+  "sub": "Cửa vòm & Nắng hoàng gia",
+  "light_dir": "left",
+  "prompt_en": "",
+  "width": 848,
+  "height": 1264,
+  "floorHex": "#D8D1C7",
+  "wallHex": "#C2B49B",
+  "flowerHex": "#C8BFAC",
+  "fg": "Mặt sàn Studio nằm ngang (#D8D1C7, giao tuyến tường-sàn y=0.83), Chân cụm hoa rum trắng, hồng trắng & lá xanh tiếp đất tự nhiên kèm bóng đổ sàn.",
+  "mid": "Hai cụm hoa đứng hai bên sườn tự động uốn ôm khít dáng đứng chú rể & tà váy cô dâu, Khóa cứng 100% độ nét pixel gốc Dâu Rể 33MP (Zero-Halo).",
+  "bg": "Vách tường đứng phào chỉ kem ấm (#C2B49B) tách biệt hoàn toàn với mặt sàn, Nắng cửa sổ Gobo xiên -32° trên tường và khúc xạ ngang trên mặt sàn.",
+  "clean_bg_url": "/presets/sanh_cung_dien_chau_au_04/clean_bg.jpg",
+  "thumb_url": "/presets/sanh_cung_dien_chau_au_04/thumb.jpg",
+  "preview": "/presets/sanh_cung_dien_chau_au_04/clean_bg.jpg"
+}

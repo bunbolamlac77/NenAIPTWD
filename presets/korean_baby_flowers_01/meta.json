@@ -1,0 +1,21 @@
+{
+  "id": "korean_baby_flowers_01",
+  "name": "Hàn Quốc Botanical Sunlight",
+  "category": "Studio Hàn Quốc",
+  "light_dir": "left",
+  "prompt_en": "Korean minimal wedding studio, white baby breath and calla lily floral arrangements, soft morning window light from left, pristine off-white wall, f/1.4",
+  "width": 737,
+  "height": 1024,
+  "title": "Hàn Quốc Botanical Sunlight (v8.1)",
+  "tag": "v8.1 3D",
+  "sub": "Nắng xiên & Hoa rum",
+  "floorHex": "#E2D5C1",
+  "wallHex": "#EFE5D4",
+  "flowerHex": "#F7F2E7",
+  "fg": "Cụm hoa hồng trắng & lá khuynh diệp mờ bokeh f/1.8 ở hai góc dưới, cánh hoa rơi quanh mũi giày và bóng tiếp xúc sàn 3D.",
+  "mid": "Đăng ký SIFT + RANSAC Kép (<0.5px), giữ 100% nét mặt, tóc và hạt ren 33MP kết hợp bình hoa rum trắng hai bên.",
+  "bg": "Tường phào chỉ kem ấm & vệt nắng cửa sổ Gobo xiên 45°, đồng bộ điểm trắng sơ mi và váy cưới (LAB b = 138).",
+  "clean_bg_url": "/presets/korean_baby_flowers_01/clean_bg.jpg",
+  "thumb_url": "/presets/korean_baby_flowers_01/thumb.jpg",
+  "preview": "/presets/korean_baby_flowers_01/clean_bg.jpg"
+}

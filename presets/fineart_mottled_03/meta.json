@@ -1,0 +1,19 @@
+{
+  "name": "Sảnh Nắng Cổ Điển",
+  "category": "Cổ Điển",
+  "light_dir": "left",
+  "tone": "Canvas loang nghệ thuật",
+  "id": "fineart_mottled_03",
+  "title": "Sảnh Nắng Cổ Điển (v8.1)",
+  "tag": "CLASSIC",
+  "sub": "Cửa vòm nắng ấm",
+  "floorHex": "#DFCBB2",
+  "wallHex": "#EAE0CF",
+  "flowerHex": "#F5EFE6",
+  "fg": "Mặt sàn gạch kem bóng phản xạ ánh nắng cửa sổ, cụm hoa tiền cảnh hai bên tạo chiều sâu 3 lớp.",
+  "mid": "Bố cục đối xứng sang trọng tôn dáng vest kem chú rể và độ phồng tà váy cưới cô dâu.",
+  "bg": "Kiến trúc cổ điển châu Âu với ánh sáng khuếch tán mềm mại và quầng sáng viền 360°.",
+  "clean_bg_url": "/presets/fineart_mottled_03/clean_bg.jpg",
+  "thumb_url": "/presets/fineart_mottled_03/thumb.jpg",
+  "preview": "/presets/fineart_mottled_03/clean_bg.jpg"
+}

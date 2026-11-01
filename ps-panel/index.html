@@ -1,0 +1,1146 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NenAI Studio v8.1 PRO — Ghép Nền Cưới 33MP</title>
+  <script src="main.js"></script>
+  <script src="controller.js"></script>
+  <style id="nenaiMainStyle">
+    /* ==========================================================================
+       NenAI Studio v8.1 PRO — 100% Adobe UXP & Web Flexbox Design System
+       Tương thích tuyệt đối với Photoshop 2026 UXP (Không dùng CSS Grid,
+       không dùng position:sticky gây lỗi co góc, không dùng thẻ <button> mặc định)
+       ========================================================================== */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      user-select: none;
+      -webkit-user-select: none;
+    }
+
+    html, body {
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      overflow: hidden;
+      background-color: #111319;
+      color: #f3f4f8;
+      font-size: 12px;
+      line-height: 1.45;
+    }
+
+    #nenaiAppRoot {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      pointer-events: auto;
+    }
+
+    .cta-gold-btn, .sub-action-btn, .seg-item, .vault-item, .mat-pill, .btn-hot-reload, .btn-compare-pill, .btn-upload-pill, .btn-save-pill, .brand-icon, .toggle-row {
+      pointer-events: auto !important;
+      cursor: pointer !important;
+      user-select: none !important;
+      -webkit-user-select: none !important;
+    }
+
+    /* Thanh cuộn tinh tế */
+    ::-webkit-scrollbar { width: 5px; height: 5px; }
+    ::-webkit-scrollbar-track { background: #0d0e13; }
+    ::-webkit-scrollbar-thumb { background: #2e3244; border-radius: 3px; }
+    ::-webkit-scrollbar-thumb:hover { background: #d4af37; }
+
+    /* ==========================================================================
+       1. TOP DOCKED HEADER (100% Width, Pinned Top)
+       ========================================================================== */
+    .top-bar {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 54px;
+      z-index: 30;
+      padding: 0 14px;
+      background-color: #171922;
+      border-bottom: 1px solid #262938;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .brand-left {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+    }
+
+    .brand-icon {
+      width: 30px;
+      height: 30px;
+      border-radius: 8px;
+      background: linear-gradient(135deg, #e5c158 0%, #d4af37 50%, #b5891c 100%);
+      color: #0b0c10;
+      font-weight: 900;
+      font-size: 15px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-right: 10px;
+      box-shadow: 0 2px 10px rgba(212, 175, 55, 0.35);
+    }
+
+    .brand-info {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .brand-title-row {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+    }
+
+    .brand-name {
+      font-size: 13px;
+      font-weight: 800;
+      color: #ffffff;
+      margin-right: 6px;
+    }
+
+    .badge-v8 {
+      font-size: 9px;
+      font-weight: 800;
+      padding: 1px 6px;
+      border-radius: 4px;
+      background-color: rgba(212, 175, 55, 0.18);
+      color: #f3cf6e;
+      border: 1px solid rgba(212, 175, 55, 0.45);
+    }
+
+    .brand-status-sub {
+      font-size: 10px;
+      color: #34d399;
+      margin-top: 2px;
+      font-weight: 500;
+    }
+
+    .top-right-group {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      flex-shrink: 0;
+    }
+
+    .btn-hot-reload {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      background-color: rgba(212, 175, 55, 0.16);
+      border: 1px solid rgba(212, 175, 55, 0.55);
+      padding: 4px 8px;
+      border-radius: 12px;
+      font-size: 10px;
+      font-weight: 700;
+      color: #f3cf6e;
+      cursor: pointer;
+      margin-right: 6px;
+      white-space: nowrap;
+    }
+
+    .btn-hot-reload:hover {
+      background-color: #d4af37;
+      color: #0b0c10;
+    }
+
+    .conn-pill {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      background-color: rgba(16, 185, 129, 0.14);
+      border: 1px solid rgba(16, 185, 129, 0.4);
+      padding: 4px 9px;
+      border-radius: 14px;
+      font-size: 10px;
+      font-weight: 700;
+      color: #34d399;
+      white-space: nowrap;
+    }
+
+    .conn-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 3px;
+      background-color: #10b981;
+      margin-right: 6px;
+    }
+
+    /* ==========================================================================
+       2. SCROLLABLE MIDDLE WORKSPACE (Pinned between Top & Bottom Bars)
+       ========================================================================== */
+    .scroll-workspace {
+      position: absolute;
+      top: 54px;
+      bottom: 98px;
+      left: 0;
+      right: 0;
+      width: 100%;
+      overflow-y: auto;
+      overflow-x: hidden;
+      padding: 10px 12px 16px 12px;
+      display: block;
+    }
+
+    .block-section {
+      width: 100%;
+      margin-bottom: 12px;
+      display: block;
+    }
+
+    .sec-head {
+      width: 100%;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 7px;
+    }
+
+    .sec-title-wrap {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+    }
+
+    .sec-num {
+      width: 18px;
+      height: 18px;
+      border-radius: 5px;
+      background-color: rgba(212, 175, 55, 0.2);
+      border: 1px solid rgba(212, 175, 55, 0.4);
+      color: #f3cf6e;
+      font-size: 10px;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-right: 7px;
+    }
+
+    .sec-title {
+      font-size: 11px;
+      font-weight: 700;
+      color: #d5d8e6;
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+    }
+
+    .sec-badge-right {
+      font-size: 10px;
+      color: #e5c158;
+      font-weight: 600;
+    }
+
+    /* ==========================================================================
+       LIVE STUDIO PREVIEW CARD
+       ========================================================================== */
+    .preview-card {
+      width: 100%;
+      background-color: #171922;
+      border: 1px solid #282c3d;
+      border-radius: 10px;
+      overflow: hidden;
+      display: block;
+      margin-bottom: 12px;
+    }
+
+    .preview-top-bar {
+      width: 100%;
+      padding: 7px 10px;
+      background-color: #1c1f2b;
+      border-bottom: 1px solid #282c3d;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .preview-title-text {
+      font-size: 11px;
+      font-weight: 700;
+      color: #ffffff;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      min-width: 0;
+      margin-right: 6px;
+    }
+
+    .preview-actions-right {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      flex-shrink: 0;
+    }
+
+    .res-tag {
+      font-size: 10px;
+      color: #f3cf6e;
+      font-weight: 700;
+      margin-right: 6px;
+    }
+
+    .btn-compare-pill {
+      padding: 3px 7px;
+      border-radius: 5px;
+      background-color: #272b3a;
+      border: 1px solid rgba(212, 175, 55, 0.45);
+      color: #f3cf6e;
+      font-size: 10px;
+      font-weight: 700;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+
+    .btn-compare-pill:hover {
+      background-color: #d4af37;
+      color: #0b0c10;
+    }
+
+    .preview-stage {
+      width: 100%;
+      height: 225px;
+      background-color: #0c0d12;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .preview-stage img {
+      max-width: 100%;
+      max-height: 225px;
+      object-fit: contain;
+      display: block;
+    }
+
+    .preview-caption-bar {
+      width: 100%;
+      padding: 5px 10px;
+      background-color: #14161f;
+      border-top: 1px solid #232634;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 10px;
+      color: #a6abc0;
+    }
+
+    /* ==========================================================================
+       1. SHOT FRAMING (3-Column Pure Flexbox Segmented Control)
+       ========================================================================== */
+    .seg-row {
+      width: 100%;
+      display: flex;
+      flex-direction: row;
+      background-color: #0d0f15;
+      padding: 4px;
+      border-radius: 9px;
+      border: 1px solid #252838;
+    }
+
+    .seg-item {
+      flex: 1;
+      min-width: 0;
+      overflow: hidden;
+      padding: 6px 4px;
+      border-radius: 6px;
+      background-color: transparent;
+      color: #9da2b8;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      margin-right: 4px;
+      border: 1px solid transparent;
+    }
+
+    .seg-item:last-child {
+      margin-right: 0;
+    }
+
+    .seg-item:hover {
+      background-color: #1a1d29;
+      color: #ffffff;
+    }
+
+    .seg-item.active {
+      background: linear-gradient(135deg, #e5c158 0%, #d4af37 100%);
+      color: #0b0c10;
+      border-color: #fde68a;
+      box-shadow: 0 2px 8px rgba(212, 175, 55, 0.3);
+    }
+
+    .seg-main-label {
+      font-size: 11px;
+      font-weight: 700;
+    }
+
+    .seg-item.active .seg-main-label {
+      font-weight: 800;
+      color: #0b0c10;
+    }
+
+    .seg-sub-label {
+      font-size: 9px;
+      color: #6f748a;
+      margin-top: 1px;
+    }
+
+    .seg-item.active .seg-sub-label {
+      color: #221c08;
+      font-weight: 600;
+    }
+
+    /* ==========================================================================
+       2. STUDIO VAULT (3-Column Pure Flexbox Cards with Fixed Height Thumbs)
+       ========================================================================== */
+    .btn-upload-pill {
+      padding: 4px 10px;
+      border-radius: 6px;
+      background-color: rgba(212, 175, 55, 0.15);
+      border: 1px solid rgba(212, 175, 55, 0.45);
+      color: #f3cf6e;
+      font-size: 10px;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+    }
+
+    .btn-upload-pill:hover {
+      background-color: #d4af37;
+      color: #0b0c10;
+    }
+
+    .btn-save-pill {
+      padding: 4px 10px;
+      border-radius: 6px;
+      background-color: rgba(217, 119, 6, 0.18);
+      border: 1px solid rgba(217, 119, 6, 0.6);
+      color: #fbbf24;
+      font-size: 10px;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+    }
+
+    .btn-save-pill:hover {
+      background-color: #d97706;
+      color: #ffffff;
+    }
+
+    .vault-row {
+      width: 100%;
+      display: flex;
+      flex-direction: row;
+      overflow-x: auto;
+      gap: 7px;
+      padding-bottom: 4px;
+    }
+
+    .vault-item {
+      flex: 0 0 calc(33.333% - 5px);
+      min-width: 98px;
+      max-width: 130px;
+      box-sizing: border-box;
+      overflow: hidden;
+      background-color: #171922;
+      border: 1px solid #262938;
+      border-radius: 9px;
+      padding: 5px;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .vault-item:last-child {
+      margin-right: 0;
+    }
+
+    .vault-item:hover {
+      border-color: rgba(212, 175, 55, 0.6);
+      background-color: #1d202c;
+    }
+
+    .vault-item.active {
+      border: 2px solid #d4af37;
+      background-color: #1f2230;
+      box-shadow: 0 0 12px rgba(212, 175, 55, 0.22);
+    }
+
+    .vault-thumb-box {
+      width: 100%;
+      height: 112px;
+      border-radius: 6px;
+      overflow: hidden;
+      background-color: #0c0d12;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .vault-thumb-box img {
+      width: 100%;
+      height: 112px;
+      object-fit: cover;
+      display: block;
+    }
+
+    .vault-tag {
+      position: absolute;
+      top: 4px;
+      left: 4px;
+      padding: 1px 5px;
+      border-radius: 4px;
+      font-size: 8px;
+      font-weight: 800;
+      color: #ffffff;
+      background-color: rgba(16, 185, 129, 0.9);
+    }
+
+    .vault-item-title {
+      font-size: 10px;
+      font-weight: 700;
+      color: #ffffff;
+      margin-top: 5px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .vault-item-sub {
+      font-size: 9px;
+      color: #8c91a7;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    /* ==========================================================================
+       3. SCENE ANALYSIS & COLOR SWATCHES (Pure Flexbox Card)
+       ========================================================================== */
+    .card-panel {
+      width: 100%;
+      background-color: #171922;
+      border: 1px solid #272b3a;
+      border-radius: 10px;
+      padding: 10px 12px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .card-panel-gold {
+      border-color: rgba(212, 175, 55, 0.38);
+    }
+
+    .card-top-row {
+      width: 100%;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+      padding-bottom: 7px;
+      margin-bottom: 8px;
+      border-bottom: 1px solid #242836;
+    }
+
+    .card-top-title {
+      font-size: 11px;
+      font-weight: 700;
+      color: #f3cf6e;
+    }
+
+    .badge-green-sm {
+      font-size: 9px;
+      font-weight: 700;
+      padding: 2px 6px;
+      border-radius: 4px;
+      background-color: rgba(16, 185, 129, 0.16);
+      color: #34d399;
+      border: 1px solid rgba(16, 185, 129, 0.35);
+    }
+
+    .swatch-row {
+      width: 100%;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      margin-bottom: 8px;
+    }
+
+    .swatch-box {
+      flex: 1;
+      min-width: 0;
+      overflow: hidden;
+      background-color: #11131a;
+      border: 1px solid #252838;
+      border-radius: 7px;
+      padding: 5px 6px;
+      margin-right: 6px;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+    }
+
+    .swatch-box:last-child {
+      margin-right: 0;
+    }
+
+    .swatch-color-circle {
+      width: 18px;
+      height: 18px;
+      border-radius: 4px;
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      margin-right: 6px;
+      flex-shrink: 0;
+    }
+
+    .swatch-text-col {
+      display: flex;
+      flex-direction: column;
+      min-width: 0;
+      overflow: hidden;
+    }
+
+    .swatch-label {
+      font-size: 9px;
+      color: #8c91a7;
+    }
+
+    .swatch-hex {
+      font-size: 10px;
+      font-weight: 700;
+      color: #ffffff;
+    }
+
+    .breakdown-list {
+      width: 100%;
+      background-color: #11131a;
+      border: 1px solid #232634;
+      border-radius: 7px;
+      padding: 8px 10px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .breakdown-item {
+      font-size: 10px;
+      color: #b0b5c9;
+      margin-bottom: 5px;
+      line-height: 1.45;
+    }
+
+    .breakdown-item:last-child {
+      margin-bottom: 0;
+    }
+
+    .breakdown-key {
+      color: #ffffff;
+      font-weight: 700;
+    }
+
+    /* ==========================================================================
+       4. CUSTOM PRO TOGGLE SWITCHES & PASSE-PARTOUT PILLS
+       ========================================================================== */
+    .toggle-row {
+      width: 100%;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+      padding: 5px 0;
+      cursor: pointer;
+    }
+
+    .toggle-label-col {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .toggle-main-text {
+      font-size: 11px;
+      font-weight: 600;
+      color: #e4e7f2;
+    }
+
+    .toggle-sub-text {
+      font-size: 9px;
+      color: #8489a0;
+    }
+
+    .switch-track {
+      width: 34px;
+      height: 18px;
+      border-radius: 9px;
+      background-color: #2a2e3f;
+      border: 1px solid #3a3f54;
+      padding: 2px;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: flex-start;
+      flex-shrink: 0;
+    }
+
+    .switch-track.active {
+      background-color: #d4af37;
+      border-color: #f3cf6e;
+      justify-content: flex-end;
+    }
+
+    .switch-knob {
+      width: 12px;
+      height: 12px;
+      border-radius: 6px;
+      background-color: #ffffff;
+    }
+
+    .switch-track.active .switch-knob {
+      background-color: #0b0c10;
+    }
+
+    .divider-line {
+      width: 100%;
+      height: 1px;
+      background-color: #242836;
+      margin: 7px 0;
+    }
+
+    .mat-row {
+      width: 100%;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+      padding-top: 2px;
+    }
+
+    .mat-label {
+      font-size: 11px;
+      font-weight: 600;
+      color: #b0b5c9;
+    }
+
+    .mat-pills-group {
+      display: flex;
+      flex-direction: row;
+    }
+
+    .mat-pill {
+      padding: 4px 9px;
+      border-radius: 5px;
+      background-color: #11131a;
+      border: 1px solid #292d3e;
+      color: #9da2b8;
+      font-size: 10px;
+      font-weight: 600;
+      cursor: pointer;
+      margin-left: 5px;
+    }
+
+    .mat-pill:hover {
+      border-color: #505672;
+      color: #ffffff;
+    }
+
+    .mat-pill.active {
+      background-color: #f3cf6e;
+      color: #0b0c10;
+      border-color: #fde68a;
+      font-weight: 800;
+    }
+
+    /* ==========================================================================
+       5. BOTTOM DOCKED ACTION BAR (100% Width, Pinned Bottom)
+       ========================================================================== */
+    .bottom-bar {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 98px;
+      z-index: 30;
+      padding: 10px 14px 10px 14px;
+      background-color: #151720;
+      border-top: 1px solid #262938;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .cta-gold-btn {
+      width: 100%;
+      padding: 11px 14px;
+      border-radius: 8px;
+      background: linear-gradient(135deg, #e5c158 0%, #d4af37 50%, #c29725 100%);
+      border: 1px solid #fde68a;
+      color: #0b0c10;
+      font-size: 11px;
+      font-weight: 900;
+      letter-spacing: 0.4px;
+      text-transform: uppercase;
+      cursor: pointer;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 3px 14px rgba(212, 175, 55, 0.32);
+      margin-bottom: 8px;
+      text-align: center;
+    }
+
+    .cta-gold-btn:hover {
+      background: linear-gradient(135deg, #f3cf6e 0%, #e5c158 100%);
+    }
+
+    .cta-gold-btn.disabled {
+      opacity: 0.6;
+      pointer-events: none;
+    }
+
+    .bottom-sub-row {
+      width: 100%;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+    }
+
+    .sub-action-btn {
+      flex: 1;
+      padding: 7px 10px;
+      border-radius: 7px;
+      background-color: #1e212d;
+      border: 1px solid #2e3346;
+      color: #e2e5f0;
+      font-size: 11px;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      margin-right: 8px;
+    }
+
+    .sub-action-btn:last-child {
+      margin-right: 0;
+    }
+
+    .sub-action-btn:hover {
+      background-color: #272b3a;
+      border-color: #d4af37;
+      color: #ffffff;
+    }
+
+    /* Toast Notification Banner */
+    .toast-banner {
+      position: fixed;
+      top: 54px;
+      left: 14px;
+      right: 14px;
+      padding: 9px 12px;
+      background-color: #191c26;
+      border: 1px solid #10b981;
+      border-radius: 8px;
+      color: #34d399;
+      font-size: 11px;
+      font-weight: 700;
+      display: none;
+      flex-direction: row;
+      align-items: center;
+      z-index: 999;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.65);
+    }
+
+    .toast-banner.show {
+      display: flex;
+    }
+
+    .toast-banner.error {
+      border-color: #ef4444;
+      color: #f87171;
+    }
+  </style>
+</head>
+<body>
+  <div id="nenaiAppRoot">
+  <!-- NENAI_ROOT_START -->
+
+  <!-- 1. TOP DOCKED HEADER -->
+  <div class="top-bar">
+    <div class="brand-left">
+      <div class="brand-icon" onclick="window.hotReloadPanelUI ? window.hotReloadPanelUI(true) : window.location.reload()" title="Cập nhật trực tiếp giao diện Panel (Hot-Reload không cần tắt mở PTS)" style="cursor: pointer;">N</div>
+      <div class="brand-info">
+        <div class="brand-title-row">
+          <span class="brand-name">NenAI Studio</span>
+          <span class="badge-v8">v8.1 PRO</span>
+        </div>
+        <div class="brand-status-sub" id="psDocStatus">Sẵn sàng · Tự động cập nhật UI (Live)</div>
+      </div>
+    </div>
+    <div class="top-right-group">
+      <div role="button" class="btn-hot-reload" id="btnHotReloadUI" onclick="window.hotReloadPanelUI ? window.hotReloadPanelUI(true) : window.location.reload()" title="Cập nhật giao diện Panel ngay lập tức mà không cần thoát Photoshop">
+        🔄 Cập nhật
+      </div>
+      <div class="conn-pill" id="psStatusBadge">
+        <div class="conn-dot" id="psConnDot"></div>
+        <span id="psStatusText">Photoshop 2026</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- TOAST BANNER -->
+  <div id="toast" class="toast-banner">
+    <span id="toastIcon" style="margin-right: 6px;">✨</span>
+    <span id="toastMsg">Đã đồng bộ thành công!</span>
+  </div>
+
+  <!-- 2. SCROLLABLE WORKSPACE -->
+  <div class="scroll-workspace">
+
+    <!-- LIVE STUDIO PREVIEW CARD -->
+    <div class="preview-card">
+      <div class="preview-top-bar">
+        <span class="preview-title-text" id="previewTitle">Hàn Quốc Botanical Sunlight (v8.1)</span>
+        <div class="preview-actions-right">
+          <span class="res-tag" id="previewRes">4672 × 7008 (33MP)</span>
+          <div role="button" class="btn-compare-pill" id="btnCompareToggle" onclick="toggleCompareOrig()">
+            👁 So Sánh Gốc
+          </div>
+        </div>
+      </div>
+      <div class="preview-stage">
+        <img id="mainPreviewImg" src="icons/preview_korean_v8.jpg" alt="Studio Master Preview">
+      </div>
+      <div class="preview-caption-bar">
+        <span id="previewSub">★ Đồng bộ màu CIE LAB · Bóng đế giày 3D · Hoa Tiền Cảnh f/1.8</span>
+        <span style="color: #34d399; font-weight: 700;">100% Nét Gốc</span>
+      </div>
+    </div>
+
+    <!-- SECTION 1: CỰ LY CHỤP (SHOT FRAMING) -->
+    <div class="block-section">
+      <div class="sec-head">
+        <div class="sec-title-wrap">
+          <div class="sec-num">1</div>
+          <span class="sec-title">Cự Ly Chụp (Shot Framing)</span>
+        </div>
+        <span class="sec-badge-right" id="framingHint">Bóng sàn 3D &amp; Tiền cảnh f/1.8</span>
+      </div>
+
+      <div class="seg-row">
+        <div role="button" id="btnFullBody" class="seg-item active" onclick="setFraming('full_body')">
+          <span class="seg-main-label">Toàn Thân</span>
+          <span class="seg-sub-label">Bóng sàn 3D &amp; Hoa</span>
+        </div>
+        <div role="button" id="btnHalfBody" class="seg-item" onclick="setFraming('half_body')">
+          <span class="seg-main-label">Bán Thân</span>
+          <span class="seg-sub-label">Xóa phông dịu f/2.0</span>
+        </div>
+        <div role="button" id="btnPortrait" class="seg-item" onclick="setFraming('portrait')">
+          <span class="seg-main-label">Chân Dung</span>
+          <span class="seg-sub-label">Bokeh Fine-Art</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- SECTION 2: KHO BỐI CẢNH MẪU (STUDIO VAULT) -->
+    <div class="block-section">
+      <div class="sec-head">
+        <div class="sec-title-wrap">
+          <div class="sec-num">2</div>
+          <span class="sec-title">Kho Bối Cảnh Mẫu (Studio Vault)</span>
+        </div>
+        <div style="display: flex; gap: 6px; align-items: center;">
+          <div role="button" id="btnUploadBg" class="btn-upload-pill" title="Nạp bối cảnh mẫu từ máy tính để phân tích và ghép">
+            + Nạp Ảnh Mẫu
+          </div>
+          <div role="button" id="btnSavePresetVault" class="btn-save-pill" title="Lưu bối cảnh hiện tại vào Kho Mẫu Studio">
+            💾 Lưu Vào Kho
+          </div>
+        </div>
+      </div>
+      <input type="file" id="uploadBgInput" accept="image/*" style="display: none;">
+
+      <div class="vault-row" id="vaultGrid">
+        <!-- Card 1 -->
+        <div role="button" id="preset_korean_baby_flowers_01" class="vault-item active" onclick="selectPreset('korean_baby_flowers_01')">
+          <div class="vault-thumb-box">
+            <img src="icons/thumb_korean_v8.jpg" alt="Hàn Quốc Botanical">
+            <span class="vault-tag">v8.1 3D</span>
+          </div>
+          <div class="vault-item-title">Hàn Quốc Botanical</div>
+          <div class="vault-item-sub">Nắng xiên &amp; Hoa rum</div>
+        </div>
+
+        <!-- Card 2 -->
+        <div role="button" id="preset_palace_gold_02" class="vault-item" onclick="selectPreset('palace_gold_02')">
+          <div class="vault-thumb-box">
+            <img src="icons/thumb_luxury_v8.jpg" alt="Vòm Hoa Cẩm Thạch">
+            <span class="vault-tag" style="background-color: #d97706;">LUXURY</span>
+          </div>
+          <div class="vault-item-title">Vòm Hoa Cẩm Thạch</div>
+          <div class="vault-item-sub">Sàn đá &amp; Lan hồ điệp</div>
+        </div>
+
+        <!-- Card 3 -->
+        <div role="button" id="preset_fineart_mottled_03" class="vault-item" onclick="selectPreset('fineart_mottled_03')">
+          <div class="vault-thumb-box">
+            <img src="icons/thumb_conservatory_v8.jpg" alt="Sảnh Nắng Hoàng Gia">
+            <span class="vault-tag" style="background-color: #7c3aed;">CLASSIC</span>
+          </div>
+          <div class="vault-item-title">Sảnh Nắng Cổ Điển</div>
+          <div class="vault-item-sub">Cửa vòm nắng ấm</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SECTION 3: BẢN PHÂN TÍCH BỐI CẢNH & ĐỒNG BỘ MÀU -->
+    <div class="block-section">
+      <div class="card-panel card-panel-gold" id="sceneBreakdownBox">
+        <div class="card-top-row">
+          <span class="card-top-title">📋 Phân Tích Không Gian 3 Lớp &amp; Sắc Độ Nền</span>
+          <span class="badge-green-sm">ĐỒNG BỘ CIE LAB</span>
+        </div>
+
+        <!-- 3 Color Swatches (Pure Flexbox Row) -->
+        <div class="swatch-row">
+          <div class="swatch-box">
+            <div class="swatch-color-circle" id="swatchFloor" style="background-color: #E2D5C1;"></div>
+            <div class="swatch-text-col">
+              <span class="swatch-label">Màu Sàn</span>
+              <span class="swatch-hex" id="hexFloor">#E2D5C1</span>
+            </div>
+          </div>
+
+          <div class="swatch-box">
+            <div class="swatch-color-circle" id="swatchWall" style="background-color: #EFE5D4;"></div>
+            <div class="swatch-text-col">
+              <span class="swatch-label">Màu Tường</span>
+              <span class="swatch-hex" id="hexWall">#EFE5D4</span>
+            </div>
+          </div>
+
+          <div class="swatch-box">
+            <div class="swatch-color-circle" id="swatchFlower" style="background-color: #F7F2E7;"></div>
+            <div class="swatch-text-col">
+              <span class="swatch-label">Điểm Trắng</span>
+              <span class="swatch-hex" id="hexFlower">#F7F2E7</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- 3-Layer Description -->
+        <div class="breakdown-list">
+          <div class="breakdown-item">
+            <span class="breakdown-key">• Tiền Cảnh (f/1.8):</span>
+            <span id="descForeground">Cụm hoa hồng trắng &amp; lá khuynh diệp mờ bokeh hai góc dưới, cánh hoa rơi quanh mũi giày và bóng tiếp xúc sàn 3D.</span>
+          </div>
+          <div class="breakdown-item">
+            <span class="breakdown-key">• Trung Cảnh (33MP):</span>
+            <span id="descMidground">Đăng ký SIFT + RANSAC Kép (&lt;0.5px), giữ 100% nét mặt, tóc và hạt ren gốc kết hợp trường sáng ấm của phòng.</span>
+          </div>
+          <div class="breakdown-item">
+            <span class="breakdown-key">• Hậu Cảnh &amp; Màu Nắng:</span>
+            <span id="descBackground">Tường phào chỉ kem ấm &amp; vệt nắng cửa sổ Gobo xiên 45°, tự động cân bằng điểm trắng sơ mi và váy cưới.</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SECTION 4: TÙY CHỌN ĐỒNG BỘ MÀU & KHUNG TRIỂN LÃM -->
+    <div class="block-section" style="margin-bottom: 4px;">
+      <div class="card-panel">
+        <!-- Switch 1 -->
+        <div role="button" class="toggle-row" onclick="toggleOption('skinShield')">
+          <div class="toggle-label-col">
+            <span class="toggle-main-text">Đồng bộ màu CIE LAB &amp; Bảo vệ da (Skin Shield v8.1)</span>
+            <span class="toggle-sub-text">Hòa màu nắng ấm lên sơ mi, váy cưới &amp; da mặt mà không làm bệt chi tiết</span>
+          </div>
+          <div id="swSkinShield" class="switch-track active">
+            <div class="switch-knob"></div>
+          </div>
+        </div>
+
+        <div class="divider-line"></div>
+
+        <!-- Switch 2 -->
+        <div role="button" class="toggle-row" onclick="toggleOption('catchlight')">
+          <div class="toggle-label-col">
+            <span class="toggle-main-text">Quầng sáng viền 360° (Light-Wrap) &amp; Catchlight mắt</span>
+            <span class="toggle-sub-text">Ôm sáng viền vai/tóc tự nhiên và giữ độ đen nhánh của mái tóc</span>
+          </div>
+          <div id="swCatchlight" class="switch-track active">
+            <div class="switch-knob"></div>
+          </div>
+        </div>
+
+        <div class="divider-line"></div>
+
+        <!-- Passe-Partout Row -->
+        <div class="mat-row">
+          <span class="mat-label">Bo viền triển lãm:</span>
+          <div class="mat-pills-group">
+            <div role="button" id="matNone" class="mat-pill active" onclick="setMat('none')">Không bo</div>
+            <div role="button" id="matWhite" class="mat-pill" onclick="setMat('white')">Viền trắng</div>
+            <div role="button" id="matCream" class="mat-pill" onclick="setMat('cream')">Trắng ngà</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- 3. BOTTOM DOCKED ACTION BAR -->
+  <div class="bottom-bar">
+    <div role="button" id="btnPushPhotoshop" class="cta-gold-btn" onclick="handleOneClickPipeline()">
+      <span>⚡ ĐẨY BẢN MASTER 33MP VÀO PHOTOSHOP (1-CLICK)</span>
+    </div>
+
+    <div class="bottom-sub-row">
+      <div role="button" id="btnRegen" class="sub-action-btn" onclick="handleRegenerate()">
+        <span>🔄 Tinh Chỉnh Ánh Sáng</span>
+      </div>
+      <div role="button" id="btnSavePreset" class="sub-action-btn" onclick="handleSavePreset()">
+        <span>💾 Lưu Bối Cảnh Vào Kho</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- NENAI_ROOT_END -->
+  </div>
+
+  <script src="controller.js"></script>
+</body>
+</html>

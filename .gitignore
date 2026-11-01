@@ -1,0 +1,24 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Output renders and test images (can be gigabytes)
+output/*
+!output/.gitkeep
+
+# macOS specific
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+
+# Temporary files & cache
+/tmp/
+.cache/
+*.tmp
+
+# Environment
+.venv/
+env/
+venv/
